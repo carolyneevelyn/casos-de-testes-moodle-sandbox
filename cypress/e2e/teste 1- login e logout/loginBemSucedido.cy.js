@@ -8,8 +8,8 @@ describe('Login Bem-sucedido', () => {
     //Visitando a página de login
     cy.visit(Cypress.env('url'));
     //Inserindo as credenciais corretas
-    cy.get('#username').type(Cypress.env('username'))
-    cy.get('#password').type(Cypress.env('password'))
+    cy.get('#username').clear().type(Cypress.env('username'))
+    cy.get('#password').clear().type(Cypress.env('password'))
     //Clicando no botão de Login
     cy.get('#loginbtn').click()
     //Verificando se o login foi redirecionado para a página de HOME
