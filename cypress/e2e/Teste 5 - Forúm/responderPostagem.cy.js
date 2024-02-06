@@ -1,28 +1,36 @@
+/*
+Cenário de Teste responder post em fórum de algum curso.
+**/
 
 
-
-describe('Criação de estudantes', () => {
+describe('Responder postagem', () => {
   before(() => {
 		cy.login()
 	})
 
 
-  it('Criar 10 estudantes na plataforma', () => {
-    // Visite a página de criação de estudantes
-    cy.visit('https://sandbox.moodledemo.net/mod/forum/discuss.php?d=1')
-    //Responder tópico
+  it('Responder a uma postagem existente em um fórum', () => {
+    // Visite a página de gerenciar cursos
+    cy.visit('https://sandbox.moodledemo.net/course/management.php')
+    //Filtrar pelo curso
+    cy.get('input[placeholder="Search courses"]').type('Teste')
+    cy.get('button[class="btn  btn-primary search-icon"]').click()
+    //Clicar em editar curso
+    cy.get('i[title="Edit"]').click()
+    //Cursos
+    cy.get('[data-key="coursehome"] > .nav-link').click()
+    //Anúncios
+    cy.get('.aalink').eq(0).click()
+    cy.get('.p-3 > .d-flex > .w-100').click()
+    //botão responder
     cy.get('[href="https://sandbox.moodledemo.net/mod/forum/post.php?reply=1#mformforum"]').click()
-    //Mensagem de resposta
-    cy.wait(5000)
-    cy.get('iframe[id="id_message_ifr"]').then($iframe => {
-      const body = $iframe.contents().find('body');
-      
-      // Agora você pode interagir com os elementos dentro do iframe
-      body.find('#id_message_ifr').type('Texto a ser inserido');
-    });
-    //Postar no fórum
+    //Mensagem resposta
+    cy.iframe('#id_message_ifr').type('Testeee')
+    //botão de enviar
     cy.get('#id_submitbutton').click()
-
+    ////Validando mensagem de sucessoao salvar mensagem no fórum
+    cy.get('.alert').should('include.text', 'Your post was successfully added.You have 30 mins to edit it if you want to make any changes.');
+  
   })
 
 })

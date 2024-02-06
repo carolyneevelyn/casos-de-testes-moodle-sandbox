@@ -13,3 +13,5 @@ Cypress.Commands.add('login', (username, password) => {
 
 
 import 'cypress-file-upload';
+import 'cypress-iframe';
+

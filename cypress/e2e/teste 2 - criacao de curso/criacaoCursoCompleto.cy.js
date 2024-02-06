@@ -19,7 +19,6 @@ describe('Criação de curso bem sucedida', () => {
     //General:
     cy.get('#id_fullname').type('Curso Teste')
     cy.get('#id_shortname').type('test')
-    //cy.get('#form_autocomplete_input-1707147866677').select('Languages')
     cy.get('#id_visible').select('Show')
     cy.get('#id_startdate_day').select('5')
     cy.get('#id_startdate_month').select('February')
@@ -39,6 +38,9 @@ describe('Criação de curso bem sucedida', () => {
     //Anexando imagem de curso
     const upload = 'input[type="file"]';
     cy.get('.fp-btn-add > .btn').click()
+    //Upload a file
+    cy.get('img[class="fp-repo-icon"]').eq(2)
+      .click()
     cy.get(upload)
       .as('fileInput')
       .attachFile('cypress-test.jpg')
